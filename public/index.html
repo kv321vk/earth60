@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+    <!--<script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>-->
+    <script src="./flexible.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <link rel="shortcut icon" href="#"/>
+    <link href="https://cdn.bootcss.com/normalize/7.0.0/normalize.min.css" rel="stylesheet">
+    <title>合生创展，为地球发声</title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but gp-website doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+    <script>
+        function onBridgeReady() {
+          if (WeixinJSBridge) {
+            // WeixinJSBridge.call('hideToolbar');
+	          // WeixinJSBridge.call('hideOptionMenu');
+          }
+        }
+        if (typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            onBridgeReady();
+        }
+
+        var audio = document.getElementById('audio');
+        window.onpageshow=function() {
+          alert('苹果4')
+          autoPlayMusic()
+        }
+        function autoPlayMusic() {
+            // 自动播放音乐效果，解决浏览器或者APP自动播放问题
+            function musicInBrowserHandler() {
+              alert('苹果5')
+              audio && audio.play();
+              document.body.removeEventListener('touchstart', musicInBrowserHandler);
+            }
+            document.body.addEventListener('touchstart', musicInBrowserHandler);
+            // 自动播放音乐效果，解决微信自动播放问题
+            function musicInWeixinHandler() {
+                alert('苹果1')
+                audio.play();
+                document.addEventListener("WeixinJSBridgeReady", function () {
+                  audio.play();
+                  alert('苹果2')
+                }, false);
+                document.removeEventListener('DOMContentLoaded', musicInWeixinHandler);
+            }
+            document.addEventListener('DOMContentLoaded', musicInWeixinHandler);
+            wxAutoPlay()
+        }
+        function wxAutoPlay(){
+          wx.config({
+            debug : false, // 这里为false
+            appId : 'wx6f532da52ec936d6', // 以下随意填写即可
+            timestamp : (new Date()).getTime(),
+            nonceStr : '',
+            signature : '',
+            jsApiList : ['checkJsApi','hideOptionMenu','hideAllNonBaseMenuItem']
+          });
+          wx.ready(function() {
+            wx.hideOptionMenu();
+            audio.play();
+            alert('苹果3')
+          });
+        }
+      // document.body.addEventListener('touchmove', function(e) {
+      //   e.preventDefault()
+      // }, {
+      //   passive: false
+      // })
+    </script>
+  </body>
+</html>
